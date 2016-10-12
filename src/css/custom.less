@@ -1,0 +1,92 @@
+body {
+    font-size: 0.4rem;
+}
+.weui_navbar {
+    position: relative;
+}
+
+#index-box {
+    .weui_panel {
+        margin-top: 0;
+    }
+
+    .weui_search_bar {
+        font-size: 0.2rem;
+    }
+
+    .articles {
+        .weui_media_appmsg_thumb {
+            width: 100%;
+            height: 100%;
+        }
+        .weui_media_desc {
+            margin: 3px 0;
+        }
+    }
+}
+
+.banner {
+    width: 100%;
+    height: 160px;
+    position: relative;
+    background: url(/public/images/list_img.jpg) 0 0;
+
+    .stars {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        color: #fff;
+        width: 60px;
+        height: 20px;
+        border-radius: 10px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 10px;
+        background-color: #000;
+        opacity: 0.6;
+    }
+}
+
+.tabbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+
+    font-size: 0.5rem;
+
+    color: #666666;
+
+    .weui_tabbar_label {
+        color: inherit;
+    }
+
+    .weui_tabbar_icon {
+        line-height: 24px;
+        color: #666666;
+        text-align: center;
+    }
+
+    a {
+        color: inherit;
+    }
+}
+
+#shop-box {
+    .weui_cells {
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    .over-text {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+    }
+}

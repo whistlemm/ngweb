@@ -1,0 +1,28 @@
+<div id="article-box">
+	<div class="banner">
+		<div class="stars"><span class="fa fa-thumbs-o-up"></span>{{article.stars}}</div>
+	</div>
+	<div class="weui_panel weui_panel_access">
+	  <div class="weui_panel_bd">
+	    <div class="weui_media_box weui_media_text">
+	      <h4 class="weui_media_title">{{article.title}}</h4>
+	      <p class="weui_media_desc">{{article.content}}</p>
+	    </div>
+	  </div>
+	</div>
+	<div class="weui_panel weui_panel_access">
+		<!-- <div class="weui_panel_hd">商品列表</div> -->
+		<div class="weui_panel_bd">
+			<a ng-repeat="item in article.shops" href="#/shop/{{item.shop._id}}" class="weui_media_box weui_media_appmsg">
+				<div class="weui_media_hd">
+					<img class="weui_media_appmsg_thumb" src="" alt="">
+				</div>
+				<div class="weui_media_bd">
+					<h4 class="weui_media_title">{{item.shop.title}}</h4>
+					<p class="weui_media_desc">{{item.des}}</p>
+				</div>
+			</a>
+		</div>
+		<a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+	</div>
+</div>

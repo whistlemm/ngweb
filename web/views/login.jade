@@ -1,0 +1,18 @@
+extends layout
+
+block content
+	.container
+		.col-sm-6.col-sm-offset-3
+			form.form-horizontal(method="post", action="/admin/login")
+				.form-group
+					label.control-label.col-sm-2(for="username") 用户名
+					.col-sm-10
+						input#username.form-control(name="username",type="text",placeholder="你的用户名字 ＝ ＝")
+				.form-group
+					label.control-label.col-sm-2(for="password") 密码
+					.col-sm-10
+						input#password.form-control(name="password",type="password",placeholder="暗号")
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						button.btn.btn-success(type="submit") 登录
+

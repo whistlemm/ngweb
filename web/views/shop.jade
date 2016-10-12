@@ -1,0 +1,84 @@
+extends layout
+
+block content
+    .container
+      ul.nav.nav-tabs
+        li(class="#{btn == '#list' || !btn ? 'active':''}")
+          a(href="#list", data-toggle="tab") 商店列表
+        li(class="#{btn == '#add' ? 'active' : ''}")
+          a(href="#add", data-toggle="tab") 增加商店
+        if shop
+          li(class="#{btn == '#update' ? 'active' : ''}")
+            a(href="#update", data-toggle="tab") 更新商店
+      .tab-content
+        #list.tab-pane.fade.in(class="#{btn == '#list' || !btn ? 'active': ''}")
+          table.table.table-hover
+            thead
+              tr
+                th id
+                th 标题
+                th 地址
+                th 联系方式
+                th createAt
+                th updateAt
+                th 操作
+            tbody
+              each item, i in shops 
+                tr
+                  td= i
+                  td= item.title
+                  td= item.location
+                  td= item.phone
+                  - var createAt = item.meta.createAt, cDate = createAt.getFullYear() + '-' + createAt.getMonth() + '-' + createAt.getDate();
+                  - var updateAt = item.meta.updateAt, uDate = updateAt.getFullYear() + '-' + updateAt.getMonth() + '-' + updateAt.getDate();
+                  td= cDate
+                  td= uDate
+                  td 
+                    a.btn.btn-danger(href="/admin/shop/del?_id=#{item._id}") 删除
+                    a.btn.btn-warning(href="/admin/shop/update/?_id=#{item._id}") 修改
+                    a.btn.btn-warning(href="/admin/goods?shopId=#{item._id}") 添加商品
+        #add.tab-pane.fade.in(class="#{btn == '#add' ? 'active':''}")
+          .container
+            form.form-horizontal(method="post", action="/admin/shop")
+              .form-group
+                label.control-label.col-sm-2 标题
+                .col-sm-10
+                  input.form-control(type="text", name="title", placeholder="请输入商店标题")
+              .form-group
+                label.control-label.col-sm-2 联系方式
+                .col-sm-10
+                  input.form-control(type="text", name="phone", placeholder="请输入联系方式")
+              .form-group
+                label.control-label.col-sm-2 地理位置
+                .col-sm-10
+                  input.form-control(type="text", name="location", placeholder="请输入联系方式")
+              .form-group
+                .col-sm-10.col-sm-offset-2
+                  button.btn.btn-success 提交
+        if shop
+          #update.tab-pane.fade.in(class="#{btn == '#update' ? 'active':''}")
+            .container
+              form.form-horizontal(method="post", action="/admin/shop")
+                .form-group
+                  label.control-label.col-sm-2 标题
+                  .col-sm-10
+                    input.form-control(type="text", name="title", placeholder="请输入商店标题", value="#{shop.title}")
+                .form-group
+                  label.control-label.col-sm-2 联系方式
+                  .col-sm-10
+                    input.form-control(type="text", name="phone", placeholder="请输入联系方式", value="#{shop.phone}")
+                .form-group
+                  label.control-label.col-sm-2 地理位置
+                  .col-sm-10
+                    input.form-control(type="text", name="location", placeholder="请输入地理位置", value="#{shop.location}")
+                    input(type="hidden", value="#{shop._id}", name="_id")
+                .form-group
+                  .col-sm-10.col-sm-offset-2
+                    button.btn.btn-success 提交
+
+
+
+
+
+
+

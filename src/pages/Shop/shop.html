@@ -1,0 +1,49 @@
+<div id="shop-box">
+    <div class="weui_panel weui_panel_access">
+        <!-- <div class="weui_panel_hd">图文组合列表</div> -->
+        <div class="weui_panel_bd">
+            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb" src="" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">{{shop.title}}</h4>
+                    <p class="weui_media_desc"><span class="fa fa-thumbs-o-up"></span>&nbsp;{{shop.stars}}</p>
+                </div>
+            </a>
+            <div class="weui_cells weui_cells_access">
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_hd">
+                        <span class="fa fa-location-arrow"></span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="over-text">{{shop.location}}</p>
+                    </div>
+                    <span class="weui_cell_ft"></span>
+                </a>
+                <a class="weui_cell" href="javascript:;">
+                    <div class="weui_cell_hd">
+                        <span class="fa fa-phone"></span>
+                    </div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <p class="over-text">{{shop.phone}}</p>
+                    </div>
+                    <span class="weui_cell_ft"></span>
+                </a>
+            </div>
+        </div>
+        <div class="weui_panel_hd">商品列表</div>
+        <div class="weui_panel_bd">
+            <a ng-repeat="goods in goodsList" href="#/goods/{{goods._id}}" class="weui_media_box weui_media_appmsg">
+                <div class="weui_media_hd">
+                    <img class="weui_media_appmsg_thumb" src="" alt="">
+                </div>
+                <div class="weui_media_bd">
+                    <h4 class="weui_media_title">{{goods.title}}</h4>
+                    <p class="weui_media_desc">{{goods.des}}</p>
+                </div>
+            </a>
+        </div>
+        <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+    </div>
+</div>

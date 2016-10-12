@@ -1,0 +1,105 @@
+extends layout
+
+block content
+  .container
+    ul.nav.nav-tabs
+      li(class="#{btn == '#list' || !btn ? 'active':''}")
+        a(href="#list", data-toggle="tab") 商品列表
+      if shop
+        li(class="#{btn == '#add' ? 'active' : ''}")
+          a(href="#add", data-toggle="tab") 增加商品
+      if goods
+        li(class="#{btn == '#update' ? 'active' : ''}")
+          a(href="#update", data-toggle="tab") 更新商品
+    .tab-content
+      #list.tab-pane.fade.in(class="#{btn == '#list' || !btn ? 'active': ''}")
+        table.table.table-hover
+          thead
+            tr
+              th id
+              th 标题
+              th 描述
+              th 详情
+              th 价格
+              th 所属店铺
+              th createAt
+              th updateAt
+              th 操作
+          tbody
+            each item, i in goodsList 
+              tr
+                td= i
+                td= item.title
+                td= item.des
+                td= item.info
+                td= item.money.new
+                td= item.shop.title
+                - var createAt = item.meta.createAt, cDate = createAt.getFullYear() + '-' + createAt.getMonth() + '-' + createAt.getDate();
+                - var updateAt = item.meta.updateAt, uDate = updateAt.getFullYear() + '-' + updateAt.getMonth() + '-' + updateAt.getDate();
+                td= cDate
+                td= uDate
+                td 
+                  a.btn.btn-danger(href="/admin/goods/del?_id=#{item._id}") 删除
+                  a.btn.btn-warning(href="/admin/goods?_id=#{item._id}") 修改
+      if shop
+        #add.tab-pane.fade.in(class="#{btn == '#add' ? 'active':''}")
+          .container
+            form.form-horizontal(method="post", action="/admin/goods")
+              .form-group
+                label.control-label.col-sm-2 所属店铺
+                .col-sm-10
+                  input.form-control(type="text", disabled="true", value="#{shop.title}")
+                  input(type="hidden", name="shop", value="#{shop._id}")
+              .form-group
+                label.control-label.col-sm-2 标题
+                .col-sm-10
+                  input.form-control(type="text", name="title", placeholder="请输入商品标题")
+              .form-group
+                label.control-label.col-sm-2 描述
+                .col-sm-10
+                  input.form-control(type="text", name="des", placeholder="请输入描述")
+              .form-group
+                label.control-label.col-sm-2 详情
+                .col-sm-10
+                  textarea.form-control(name="info", placeholder="请输入详情")
+              .form-group
+                label.control-label.col-sm-2 价格
+                .col-sm-10
+                  input.form-control(type="text", name="money[new]", placeholder="请输入价格")
+              .form-group
+                .col-sm-10.col-sm-offset-2
+                  button.btn.btn-success 提交
+      if goods
+        #update.tab-pane.fade.in(class="#{btn == '#update' ? 'active':''}")
+          .container
+              form.form-horizontal(method="post", action="/admin/goods")
+                .form-group
+                  label.control-label.col-sm-2 所属店铺
+                  .col-sm-10
+                    input.form-control(type="text", disabled="true", value="#{goods.shop.title}")
+                    input(type="hidden", name="_id", value="#{goods._id}")
+                .form-group
+                  label.control-label.col-sm-2 标题
+                  .col-sm-10
+                    input.form-control(type="text", name="title", placeholder="请输入商品标题", value="#{goods.title}")
+                .form-group
+                  label.control-label.col-sm-2 描述
+                  .col-sm-10
+                    input.form-control(type="text", name="des", placeholder="请输入描述", value="#{goods.des}")
+                .form-group
+                  label.control-label.col-sm-2 详情
+                  .col-sm-10
+                    textarea.form-control(name="info", placeholder="请输入详情", rows=10) #{goods.info}
+                .form-group
+                  label.control-label.col-sm-2 价格
+                  .col-sm-10
+                    input.form-control(type="text", name="money[new]", placeholder="请输入价格",  value="#{goods.money.new}")
+                .form-group
+                  .col-sm-10.col-sm-offset-2
+                    button.btn.btn-success 提交
+
+
+
+
+
+

@@ -1,0 +1,115 @@
+extends layout
+
+block content
+  .container
+    ul.nav.nav-tabs
+      li(class="#{btn == '#list' || !btn ? 'active':''}")
+        a(href="#list",data-toggle="tab") 文章列表
+      li(class="#{btn == '#add' ? 'active':''}")
+        a(href="#add",data-toggle="tab") 添加文章
+      if article
+        li(class="#{btn == '#update' ? 'active':''}")
+          a(href="#update",data-toggle="tab") 更新文章
+    .tab-content
+      #list.tab-pane.fade.in(class="#{btn == '#list' || !btn ? 'active':''}")
+        table.table.table-hover
+          thead
+            tr
+              th id
+              th 标题
+              th createAt
+              th updateAt
+              th 操作
+          tbody
+            each item, i in articles 
+              tr
+                td= i
+                td= item.title
+                td= item.meta.createAt
+                td= item.meta.updateAt
+                td 
+                  a.btn.btn-danger(href="/admin/article/del?_id=#{item._id}") 删除
+                  a.btn.btn-warning(href="/admin/article/update/?_id=#{item._id}") 修改
+      #add.tab-pane.fade.in(class="#{btn == '#add' ? 'active':''}")
+        .container
+          form.form-horizontal(method="post", action="/admin/article")
+            .form-group
+              label.control-label.col-sm-2 标题
+              .col-sm-10
+                input.form-control(type="text", name="title", placeholder="请输入标题")
+            .form-group
+              label.control-label.col-sm-2 描述
+              .col-sm-10
+                textarea.form-control(row="5", name="content")
+            .col-sm-10.col-sm-offset-1
+              h2 关联商家
+            .form-group
+              label.control-label.col-sm-2 选择商家
+              .col-sm-10
+                select.form-control(name="shops[_id]")
+                  each shop in shops
+                    option(value="#{shop._id}") #{shop.title}
+            .form-group
+              label.control-label.col-sm-2 描述
+              .col-sm-10
+                textarea.form-control(row="5", name="shops[des]")
+            .form-group
+              .col-sm-10.col-sm-offset-2
+                button(type="button")#addBtn.btn.btn-primary 添加一个商家 
+            .form-group
+              .col-sm-10.col-sm-offset-2
+                button(type="submit").btn.btn-success 提交
+      if article
+        #update.tab-pane.fade.in(class="#{btn == '#update' ? 'active':''}")
+          form.form-horizontal(method="post", action="/admin/article")
+            input(type="hidden", name="_id", value="#{article._id}")
+            .form-group
+              label.control-label.col-sm-2 标题
+              .col-sm-10
+                input.form-control(type="text", name="title", placeholder="请输入标题", value="#{article.title}")
+            .form-group
+              label.control-label.col-sm-2 描述
+              .col-sm-10
+                textarea.form-control(row="5", name="content") #{article.content}
+            .col-sm-10.col-sm-offset-1
+              h2 关联商家
+            each selectedShop in article.shops
+              .form-group
+                label.control-label.col-sm-2 选择商家
+                .col-sm-10
+                  select.form-control(name="shops[_id]")
+                    each shop in shops
+                      if selectedShop._id.toString() == shop._id.toString()
+                        option(value="#{shop._id}", selected="selected") #{shop.title}
+                      else 
+                        option(value="#{shop._id}") #{shop.title}
+              .form-group
+                label.control-label.col-sm-2 描述
+                .col-sm-10
+                  textarea.form-control(row="5", name="shops[des]", cols=10) #{selectedShop.des}
+            .form-group
+              .col-sm-10.col-sm-offset-2
+                button(type="button")#addBtn.btn.btn-primary 添加一个商家 
+            .form-group
+              .col-sm-10.col-sm-offset-2
+                button(type="submit").btn.btn-success 提交
+
+block bottom
+  script.
+    (function(){
+      var count = 0;
+      $('#addBtn').bind('click', function(){
+        count++
+        var btnGroup = $(this).closest('.form-group'),
+            desGroup = btnGroup.prev('.form-group'),
+            shopGroup = desGroup.prev('.form-group');
+        btnGroup.before([shopGroup.clone(), desGroup.clone()]);
+        if(count>=10){
+          count = 5;
+          alert('次数太多我会把持不住的哦！')
+        }
+      });
+    })()
+
+
+

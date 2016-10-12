@@ -1,0 +1,12 @@
+<div class="weui_panel_bd articles" ng-repeat="article in articles">
+    <a ng-href="#/articles/{{article._id}}" class="weui_media_box weui_media_appmsg">
+        <div class="weui_media_hd">
+            <img class="weui_media_appmsg_thumb" ng-src="{{article.image}}" alt="">
+        </div>
+        <div class="weui_media_bd">
+            <h4 class="weui_media_title">{{article.title}}</h4>
+            <p class="weui_media_desc">{{article.des}}</p>
+            <p class="weui_media_desc"><span class="fa fa-thumbs-o-up"></span>{{article.stars}}</p>
+        </div>
+    </a>
+</div>

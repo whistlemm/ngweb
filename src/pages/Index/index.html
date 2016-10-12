@@ -1,0 +1,32 @@
+<div id="index-box">
+    <div class="weui_search_bar weui_search_focusing" id="search_bar">
+        <form class="weui_search_outer">
+            <div class="weui_search_inner">
+                <i class="weui_icon_search"></i>
+                <input type="search" class="weui_search_input" id="search_input" placeholder="搜索" required/>
+                <a href="javascript:" class="weui_icon_clear" id="search_clear"></a>
+            </div>
+            <label for="search_input" class="weui_search_text" id="search_text">
+                <i class="weui_icon_search"></i>
+                <span>搜索</span>
+            </label>
+        </form>
+        <a href="javascript:" class="weui_search_cancel" id="search_cancel">取消</a>
+    </div>
+
+
+    <div class="weui_panel weui_panel_access" ng-init="_btn = true">
+        <div class="weui_panel_hd">欢迎来到召唤师峡谷</div>
+        <div class="weui_tab">
+            <div class="weui_navbar">
+                <a class="weui_navbar_item" ng-click="_btn = true" ng-class="{'weui_bar_item_on': _btn}">热门商家推荐</a>
+                <a class="weui_navbar_item" ng-click="_btn = false" ng-class="{'weui_bar_item_on': !_btn}">热门团购精选</a>
+            </div>
+        </div>
+
+        <article-list ng-show="_btn" ng-model="articles"></article-list>
+        <shop-list ng-hide="_btn" ng-model="articles"></shop-list>
+
+        <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+    </div>
+</div>
