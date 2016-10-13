@@ -7,7 +7,7 @@
 
     // First application
     {
-      name      : "API",
+      name      : "NgWeb",
       script    : "./web/bin/www",
       env: {
         COMMON_VARIABLE: "true"
