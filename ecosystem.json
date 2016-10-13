@@ -29,7 +29,7 @@
       ref  : "origin/master",
       repo : "git@github.com:whistlemm/ngweb.git",
       path : "/home/www/production",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production"
+      "post-deploy" : "pm2 startOrRestart ecosystem.json --env production"
     },
     dev : {
       user : "root",
