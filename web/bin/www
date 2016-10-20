@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.VCAP_APP_PORT || '9494');
+var port = normalizePort(process.env.VCAP_APP_PORT || '3000');
 var host = process.env.VCAP_APP_HOST || 'localhost';
 app.set('port', port);
 

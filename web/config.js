@@ -3,5 +3,5 @@ exports.dbUrl = getDBUrl()
 
 function getDBUrl(){
 
-    return 'mongodb://localhost:27017/angular'
+    return 'mongodb://127.0.0.1:27017/angular'
 };
