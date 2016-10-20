@@ -28,7 +28,7 @@
       host : "123.206.80.183",
       ref  : "origin/master",
       repo : "git@github.com:whistlemm/ngweb.git",
-      path : "/home/www/production",
+      path : "/home/www/production-2",
       "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production"
     },
     dev : {
