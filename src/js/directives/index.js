@@ -17,10 +17,17 @@ define(function(require, exports, module){
             return {
                 templateUrl: '/public/pages/components/tabbar.html',
                 restrict: 'AE',
+                scope: true
+            }
+        })
+
+        app.directive('goodsList', function(){
+            return {
+                templateUrl: '/public/pages/Index/goodsList.html',
+                restrict: 'AE',
                 replace: true,
                 scope: true
             }
         })
     }
-
 })

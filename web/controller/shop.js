@@ -1,5 +1,9 @@
 var shopModel = require('../models/shop'),
-    goodsModel = require('../models/goods')
+    goodsModel = require('../models/goods'),
+
+    multiparty = require('multiparty'),
+    path = require('path'),
+    fs = require('fs')
 
 exports.index = function(req, res, next) {
     shopModel.fetch(function(err, shops) {
@@ -42,22 +46,55 @@ exports.detail = function(req, res, next) {
     })
 }
 
+exports.saveUpload = function(req, res, next) {
+
+    var newUpload = new multiparty.Form();
+    newUpload.parse(req, function(err, fields, files) {
+        if(err) return next(err);
+
+        req.fields = fields
+        var file = files.logo[0]
+
+        fs.readFile(file.path, function(err, data) {
+            if(err) return next(err);
+
+            var timestamp = (new Date()).getTime(),
+                newFilename = timestamp + '.' + file.originalFilename.split('.')[1]
+
+            fs.writeFile(path.resolve(__dirname, '../upload/' + newFilename), data, function(err) {
+                if(err) return next(err);
+                req.files = {
+                    logo: newFilename
+                }
+                next()
+            })
+
+        })
+
+
+    })
+}
+
 exports.add = function(req, res, next) {
+
+    var fields = req.fields
+    fields.logo = req.files.logo;
+
     var id = req.body._id;
 
     if (id) {
         shopModel.findById(id, function(err, doc) {
             if(err) return next(err);
             
-            doc.update(req.body, function(err, doc) {
+            doc.update(fields, function(err, doc) {
                 if(err) return next(err);
 
-                res.send('success')
+                res.redirect('/admin/shop')
             })
         })
     }else {
         console.log(req.body)
-        var newShop = new shopModel(req.body)
+        var newShop = new shopModel(fields)
 
         newShop.save(function(err, doc) {
             if(err) return next(err);

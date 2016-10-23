@@ -15,10 +15,14 @@ module.exports = function(app) {
     app.get('/api/article', Article.getArticles)
     app.get('/api/article/:_id', Article.getArticles)
 
-
+    /**
+     * API 获取商家
+     */
     app.get('/api/shop', Shop.getShops)
     app.get('/api/shop/:_id', Shop.getShops)
 
+    app.get('/api/goods', Goods.getGoods)
+    app.get('/api/goods/:_id', Goods.getGoods)
     /**
      * 登录登出逻辑
      */
@@ -43,7 +47,7 @@ module.exports = function(app) {
      * 商店管理
      */
     app.get('/admin/shop', Admin.requireLogin, Shop.index)
-    app.post('/admin/shop', Admin.requireLogin, Shop.add)
+    app.post('/admin/shop', Admin.requireLogin, Shop.saveUpload, Shop.add)
     app.get('/admin/shop/del', Admin.requireLogin, Shop.del)
     app.get('/admin/shop/update', Admin.requireLogin, Shop.showUpdate)
 

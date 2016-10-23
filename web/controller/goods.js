@@ -86,3 +86,21 @@ exports.del = function(req, res, next) {
         })
     })
 }
+
+exports.getGoods = function(req, res, next) {
+    var _id = req.params._id;
+
+    if (_id) {
+        goodsModel.findById(_id, function(err, doc) {
+            if(err) return next(err);
+
+            res.send(doc)
+        })
+    } else {
+        goodsModel.fetch(function(err, docs) {
+            if(err) return next(err);
+
+            res.send(docs)
+        })
+    }
+}

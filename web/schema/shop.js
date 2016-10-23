@@ -6,6 +6,7 @@ var shopSchema = new mongoose.Schema({
     stars: {type: Number, default: 0},
     location: String,
     phone: String,
+    logo: String,
     meta: {
         createAt: {
             type: Date,

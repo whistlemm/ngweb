@@ -25,6 +25,18 @@ define(function(require, exports, module){
                 }
             }
         });
+
+        app.factory('goodsServices', function($http) {
+            var goodsPromise;
+            return {
+                getGoods: function() {
+                    if(!goodsPromise) {
+                        goodsPromise = fetchGoods($http);
+                    }
+                    return goodsPromise;
+                }
+            }
+        })
     }
 
     function fetchArticles($http){
@@ -39,6 +51,13 @@ define(function(require, exports, module){
             method: 'get',
             url: '/api/article/' + id
         });
+    }
+
+    function fetchGoods($http) {
+        return $http({
+            method: 'get',
+            url: '/api/goods'
+        })
     }
 
 });

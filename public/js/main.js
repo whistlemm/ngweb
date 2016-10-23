@@ -25,6 +25,18 @@ define('services',function(require, exports, module){
                 }
             }
         });
+
+        app.factory('goodsServices', function($http) {
+            var goodsPromise;
+            return {
+                getGoods: function() {
+                    if(!goodsPromise) {
+                        goodsPromise = fetchGoods($http);
+                    }
+                    return goodsPromise;
+                }
+            }
+        })
     }
 
     function fetchArticles($http){
@@ -39,6 +51,13 @@ define('services',function(require, exports, module){
             method: 'get',
             url: '/api/article/' + id
         });
+    }
+
+    function fetchGoods($http) {
+        return $http({
+            method: 'get',
+            url: '/api/goods'
+        })
     }
 
 });
@@ -61,12 +80,19 @@ define('index_gulp-cmd_3',function(require, exports, module){
             return {
                 templateUrl: '/public/pages/components/tabbar.html',
                 restrict: 'AE',
+                scope: true
+            }
+        })
+
+        app.directive('goodsList', function(){
+            return {
+                templateUrl: '/public/pages/Index/goodsList.html',
+                restrict: 'AE',
                 replace: true,
                 scope: true
             }
         })
     }
-
 })
 define('resize',function(){
     document.addEventListener('DOMContentLoaded', function(){
@@ -117,11 +143,14 @@ define('index',['resize','index_gulp-cmd_3','services'],function(require, export
     /**
      * 首页控制器
      */
-    app.controller('homeController', function($scope, articlesServices){
+    app.controller('homeController', ['$scope', 'articlesServices', 'goodsServices', function($scope, articlesServices, goodsServices){
         articlesServices.getArticles().success(function(data, status, header){
             $scope.articles = data;
-        })
-    })
+        });
+        goodsServices.getGoods().success(function(data, status, header) {
+            $scope.goodsList = data;
+        });
+    }]);
     /**
      * 好友去哪儿控制器
      */

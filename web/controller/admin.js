@@ -20,7 +20,9 @@ exports.doLogin = function(req, res) {
                 req.session.user = user
                 res.redirect('/admin/index')
             }else{
-                console.log('密码错误')
+                res.render('login', {
+                    error: '密码错误'
+                })
             }
         })
     })
@@ -31,6 +33,7 @@ exports.logout = function(req, res) {
     res.redirect('/admin/login')
 }
 exports.index = function(req, res) {
+    res.app.locals.user = req.session.user
     res.render('index')
 }
 

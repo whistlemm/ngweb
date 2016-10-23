@@ -14,7 +14,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href="/admin/index") 后台管理页面
+          a.navbar-brand(href="/admin/index") 后台管理页面123
         #navbar-collapse.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
@@ -24,11 +24,20 @@ html
             li.divider
             li
               a(href="/admin/shop") 商家管理
-          if(user) 
+          if user 
             ul.nav.navbar-nav.navbar-right
               li
                 a(href="/admin/logout") 退出
-          
+      if error
+        .alert.alert-warning 
+          .container= error
+      if success
+        .alert.alert-success 
+          .container= success
+      if info
+        .alert.alert-info 
+          .container= info
+
 
     block content
   

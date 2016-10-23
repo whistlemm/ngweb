@@ -25,8 +25,8 @@
         </div>
 
         <article-list ng-show="_btn" ng-model="articles"></article-list>
-        <shop-list ng-hide="_btn" ng-model="articles"></shop-list>
-
+        <goods-list ng-show="!_btn" ng-model="goodsList"></goods-list>
+    
         <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
     </div>
 </div>

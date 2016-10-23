@@ -35,11 +35,14 @@ define(function(require, exports) {
     /**
      * 首页控制器
      */
-    app.controller('homeController', function($scope, articlesServices){
+    app.controller('homeController', ['$scope', 'articlesServices', 'goodsServices', function($scope, articlesServices, goodsServices){
         articlesServices.getArticles().success(function(data, status, header){
             $scope.articles = data;
-        })
-    })
+        });
+        goodsServices.getGoods().success(function(data, status, header) {
+            $scope.goodsList = data;
+        });
+    }]);
     /**
      * 好友去哪儿控制器
      */
