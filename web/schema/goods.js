@@ -11,6 +11,7 @@ var goodsSchema = new mongoose.Schema({
     },
     info: String,
     shop: { type: ObjectId, ref: "shop" },
+    images: [{type: String}],
     money: {
         old: {
             type: Number,

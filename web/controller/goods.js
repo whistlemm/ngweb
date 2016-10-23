@@ -1,6 +1,13 @@
 var goodsModel = require('../models/goods'),
-    shopModel = require('../models/shop')
+    shopModel = require('../models/shop'),
 
+    utils = require('../lib/utils'),
+
+    multiparty = require('multiparty'),
+    fs = require('fs'),
+    path = require('path')
+
+var uploadPath = path.resolve(__dirname, '../upload/goods')
 
 exports.index = function(req, res, next) {
     var shopId = req.query.shopId
@@ -51,21 +58,57 @@ exports.index = function(req, res, next) {
 
 }
 
+exports.uploadImages = function(req, res, next) {
+
+    var newUpload = new multiparty.Form();
+    newUpload.parse(req, function(err, fields, files) {
+        if(err) return next(err);
+        var images = files.images
+        
+        var pathList = []
+        var promiseArr = images.map(function(image) {
+
+            var timestamp = (new Date()).getTime(),
+                filename = timestamp + '.' + image.originalFilename.split('.')[1],
+                filepath = path.join(uploadPath, filename)
+
+            pathList.push(filepath)
+
+            return utils.readFilePromise(image.path).then(function(data){
+                utils.writeFilePromise(filepath, data)
+            })
+        })
+
+        Promise.all(promiseArr).then(function(data){
+            req.fields = fields,
+            req.files = pathList
+            next();
+        }).catch(function(err) {
+            return next(err);
+        })
+    })
+}
+
+
 exports.add = function(req, res, next) {
+    req.fields.images = req.files
+
+    var fields = req.fields
+
     var id = req.body._id
 
     if (id) {
         goodsModel.findById(id, function(err, doc) {
             if(err) return next(err);
             
-            doc.update(req.body, function(err, doc) {
+            doc.update(fields, function(err, doc) {
                 if(err) return next(err);
 
                 res.redirect('/admin/goods')
             })
         })
     }else {
-        var newGoods = new goodsModel(req.body)
+        var newGoods = new goodsModel(fields)
         newGoods.save(function(err, doc) {
             if(err) return next(err);
 

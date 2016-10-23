@@ -55,6 +55,6 @@ module.exports = function(app) {
      * 商品管理
      */
     app.get('/admin/goods', Admin.requireLogin, Goods.index)
-    app.post('/admin/goods', Admin.requireLogin, Goods.add)
+    app.post('/admin/goods', Admin.requireLogin, Goods.uploadImages, Goods.add)
     app.get('/admin/goods/del', Admin.requireLogin, Goods.del)
 }
