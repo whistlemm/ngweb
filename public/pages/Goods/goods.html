@@ -1,0 +1,41 @@
+<div class="weui_panel weui_panel_access">
+  <div class="weui_panel_hd">这是一个商品</div>
+  <div class="weui_panel_bd">
+    <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+      <div class="weui_media_hd">
+        <img class="weui_media_appmsg_thumb" ng-src="{{'/web/upload/goods/' + goods.images[0]}}" alt="">
+      </div>
+      <div class="weui_media_bd">
+        <h4 class="weui_media_title">{{goods.title}}</h4>
+        <p class="weui_media_desc">{{goods.des}}</p>
+      </div>
+    </a>
+  </div>
+  <a class="weui_panel_ft" href="javascript:void(0);">查看更多</a>
+</div>
+
+<div class="bd">
+    <article class="weui_article">
+        <!-- <h1>大标题</h1> -->
+        <section>
+            <h2 class="title">商品详情</h2>
+            <section>
+                <!-- <h3>1.1 节标题</h3> -->
+                <p>
+                    {{goods.info}}
+                </p>
+                <h3>商品图片</h3>
+                <p>
+                    <img ng-repeat="item in goods.images track by $index" ng-src="{{'/web/upload/goods/' + item}}" alt="">
+                </p>
+            </section>
+            <section>
+                <h3>1.2 节标题</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+        </section>
+    </article>
+</div>

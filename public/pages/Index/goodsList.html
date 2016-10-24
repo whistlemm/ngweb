@@ -1,7 +1,7 @@
 <div class="weui_panel_bd articles" ng-repeat="goods in goodsList">
-    <a ng-href="#/goodsList/{{goods._id}}" class="weui_media_box weui_media_appmsg">
+    <a ng-href="#/goods/{{goods._id}}" class="weui_media_box weui_media_appmsg">
         <div class="weui_media_hd">
-            <img class="weui_media_appmsg_thumb" ng-src="{{goods.image}}" alt="">
+            <img class="weui_media_appmsg_thumb" ng-src="{{'/web/upload/goods/' + goods.images[0]}}" alt="">
         </div>
         <div class="weui_media_bd">
             <h4 class="weui_media_title">{{goods.title}}</h4>

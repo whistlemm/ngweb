@@ -20,6 +20,9 @@ define(function(require, exports) {
         }).when('/shop/:id', {
             controller: 'shopController',
             templateUrl: '/public/pages/Shop/shop.html'
+        }).when('/goods/:id', {
+            controller: 'goodsController',
+            templateUrl: '/public/pages/Goods/goods.html'
         })
     });
 
@@ -60,7 +63,6 @@ define(function(require, exports) {
      */
     app.controller('articleController', function($scope, $routeParams, articlesServices){
         articlesServices.getArticleById($routeParams.id).success(function(data){
-            console.log(data);
             $scope.article = data;
         })
     });
@@ -68,9 +70,22 @@ define(function(require, exports) {
     app.controller('shopController', ['$scope','$routeParams', 'shopServices', function($scope, $routeParams, shopServices){
         var shopId = $routeParams.id;
         shopServices.getShopById(shopId).success(function(data){
-            console.log(data)
             $scope.shop = data.shop;
             $scope.goodsList = data.goodsList;
         })
     }])
+
+    app.controller('goodsController', ['$scope', '$routeParams', 'goodsServices', function($scope, $routeParams, goodsServices) {
+        var goodsId = $routeParams.id;
+        goodsServices.getGoodsById(goodsId).success(function(data){
+            $scope.goods = data;
+        })
+    }])
+
+
+
+
+
+
+
 })

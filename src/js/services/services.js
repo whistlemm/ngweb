@@ -34,6 +34,12 @@ define(function(require, exports, module){
                         goodsPromise = fetchGoods($http);
                     }
                     return goodsPromise;
+                },
+                getGoodsById: function(id) {
+                    return $http({
+                        method: 'get',
+                        url: '/api/goods/' + id
+                    })
                 }
             }
         })

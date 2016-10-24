@@ -66,16 +66,16 @@ exports.uploadImages = function(req, res, next) {
         var images = files.images
         
         var pathList = []
-        var promiseArr = images.map(function(image) {
+        var promiseArr = images.map(function(image, index) {
 
             var timestamp = (new Date()).getTime(),
-                filename = timestamp + '.' + image.originalFilename.split('.')[1],
+                filename = index + '_' + timestamp + '.' + image.originalFilename.split('.')[1],
                 filepath = path.join(uploadPath, filename)
 
-            pathList.push(filepath)
+            pathList.push(filename)
 
             return utils.readFilePromise(image.path).then(function(data){
-                utils.writeFilePromise(filepath, data)
+                return utils.writeFilePromise(filepath, data)
             })
         })
 

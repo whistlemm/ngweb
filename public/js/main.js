@@ -34,6 +34,12 @@ define('services',function(require, exports, module){
                         goodsPromise = fetchGoods($http);
                     }
                     return goodsPromise;
+                },
+                getGoodsById: function(id) {
+                    return $http({
+                        method: 'get',
+                        url: '/api/goods/' + id
+                    })
                 }
             }
         })
@@ -128,6 +134,9 @@ define('index',['resize','index_gulp-cmd_3','services'],function(require, export
         }).when('/shop/:id', {
             controller: 'shopController',
             templateUrl: '/public/pages/Shop/shop.html'
+        }).when('/goods/:id', {
+            controller: 'goodsController',
+            templateUrl: '/public/pages/Goods/goods.html'
         })
     });
 
@@ -168,7 +177,6 @@ define('index',['resize','index_gulp-cmd_3','services'],function(require, export
      */
     app.controller('articleController', function($scope, $routeParams, articlesServices){
         articlesServices.getArticleById($routeParams.id).success(function(data){
-            console.log(data);
             $scope.article = data;
         })
     });
@@ -176,10 +184,23 @@ define('index',['resize','index_gulp-cmd_3','services'],function(require, export
     app.controller('shopController', ['$scope','$routeParams', 'shopServices', function($scope, $routeParams, shopServices){
         var shopId = $routeParams.id;
         shopServices.getShopById(shopId).success(function(data){
-            console.log(data)
             $scope.shop = data.shop;
             $scope.goodsList = data.goodsList;
         })
     }])
+
+    app.controller('goodsController', ['$scope', '$routeParams', 'goodsServices', function($scope, $routeParams, goodsServices) {
+        var goodsId = $routeParams.id;
+        goodsServices.getGoodsById(goodsId).success(function(data){
+            $scope.goods = data;
+        })
+    }])
+
+
+
+
+
+
+
 })
 seajs.use('index')
